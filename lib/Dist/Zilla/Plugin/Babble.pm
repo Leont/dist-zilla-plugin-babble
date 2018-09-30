@@ -1,5 +1,6 @@
 package Dist::Zilla::Plugin::Babble;
 
+use Carp 'croak';
 use Moose;
 use MooseX::Types::Moose qw/ArrayRef Str/;
 use MooseX::Types::Perl qw/StrictVersionStr/;
@@ -98,7 +99,7 @@ sub munge_file {
 	eval {
 		$file->content($pc->transform_document($content));
 		1;
-	} or die "Could not munge " . $file->name . ": " . $@;
+	} or croak 'Could not munge ' . $file->name . ': ' . $@;
 	return;
 }
 
