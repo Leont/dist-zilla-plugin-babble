@@ -42,11 +42,11 @@ has plugins => (
 );
 
 my %supported_since = (
-	'::CoreSignatures' => '5.028',
-	'::State'          => '5.010',
-	'::DefinedOr'      => '5.010',
-	'::PostfixDeref'   => '5.020',
-	'::PostfixDeref'   => '5.014',
+	'::CoreSignatures'        => '5.028',
+	'::State'                 => '5.010',
+	'::DefinedOr'             => '5.010',
+	'::PostfixDeref'          => '5.020',
+	'::SubstituteAndReturn'   => '5.014',
 );
 
 sub _build_plugins {
