@@ -48,6 +48,9 @@ my %supported_since = (
 	'::DefinedOr'             => '5.010',
 	'::PostfixDeref'          => '5.020',
 	'::SubstituteAndReturn'   => '5.014',
+	'::Ellipsis'              => '5.012',
+	'::PackageBlock'          => '5.014',
+	'::PackageVersion'        => '5.012',
 );
 
 sub _build_plugins {
