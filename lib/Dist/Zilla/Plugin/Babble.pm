@@ -125,6 +125,7 @@ sub get_files {
 sub munge_files {
 	my $self = shift;
 
+	$self->log("Starting to babble source");
 	if (my %filename = map { $_ => 1 } $self->files) {
 		foreach my $file (@{ $self->zilla->files }) {
 			$self->munge_file($file) if $filename{$file->name};
@@ -133,6 +134,7 @@ sub munge_files {
 	else {
 		$self->munge_file($_) for $self->get_files;;
 	}
+	$self->log("Finished babbling source");
 
 	return;
 }
