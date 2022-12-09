@@ -9,7 +9,18 @@ use List::Util 'any';
 with 'Dist::Zilla::Role::FileMunger',
 	'Dist::Zilla::Role::FileFinderUser' => {
 		default_finders => [ ':InstallModules', ':ExecFiles' ],
+	},
+	'Dist::Zilla::Role::FileFinderUser' => {
+		method           => 'found_test_files',
+		finder_arg_names => [ 'test_finder' ],
+		default_finders	 => [ ':TestFiles' ],
+	},
+	'Dist::Zilla::Role::FileFinderUser' => {
+		method           => 'found_configure_files',
+		finder_arg_names => [ 'configure_finder' ],
+		default_finders	 => [],
 	};
+
 
 sub mvp_multivalue_args {
 	return qw/files plugins/;
@@ -80,6 +91,13 @@ sub _build_transformer {
 	return $pc;
 }
 
+sub get_files {
+	my $self = shift;
+	my @result = @{ $self->found_files };
+	push @result, grep { $_->name =~ /\.t/ } @{ $self->found_test_files };
+	return @result;
+}
+
 sub munge_files {
 	my $self = shift;
 
@@ -89,7 +107,7 @@ sub munge_files {
 		}
 	}
 	else {
-		$self->munge_file($_) for @{ $self->found_files };
+		$self->munge_file($_) for $self->get_files;;
 	}
 
 	return;

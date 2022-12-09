@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-Plugin-Babble
 
 {{$NEXT}}
+          - Also munge test files
 
 0.003     2022-12-01 22:05:34+01:00 Europe/Amsterdam
           - Add support for Ellipsis, ::PackageBlock, & ::PackageVersion
