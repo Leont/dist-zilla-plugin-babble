@@ -1,6 +1,8 @@
 Revision history for Dist-Zilla-Plugin-Babble
 
 {{$NEXT}}
+
+0.004     2022-12-09 02:41:39+01:00 Europe/Amsterdam
           - Also munge test files
           - Allow for extra or filtered plugins
 
