@@ -43,6 +43,16 @@ has files => (
 	},
 );
 
+has extra_plugins => (
+	isa     => ArrayRef[Str],
+	traits  => ['Array'],
+	lazy    => 1,
+	default => sub { [] },
+	handles => {
+		extra_plugins => 'elements',
+	},
+);
+
 has plugins => (
 	isa     => ArrayRef[Str],
 	traits  => ['Array'],
@@ -52,6 +62,17 @@ has plugins => (
 		plugins => 'elements',
 	},
 );
+
+has filter_plugins => (
+	isa     => ArrayRef[Str],
+	traits  => ['Array'],
+	lazy    => 1,
+	default => sub { [] },
+	handles => {
+		filter_plugins => 'elements',
+	},
+);
+
 
 my %supported_since = (
 	'::CoreSignatures'        => '5.028',
@@ -67,6 +88,9 @@ my %supported_since = (
 sub _build_plugins {
 	my $self = shift;
 	my @plugins = grep { $supported_since{$_} > $self->for_version } keys %supported_since;
+	my %filter = map { $_ => 1 } $self->filter_plugins;
+	@plugins = grep { not $filter{$_} } @plugins;
+	push @plugins, $self->extra_plugins;
 	return \@plugins;
 }
 
